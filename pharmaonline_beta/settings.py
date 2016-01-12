@@ -76,10 +76,16 @@ WSGI_APPLICATION = 'pharmaonline_beta.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'pharma-beta',
     }
 }
+
+
+import dj_database_url
+#heroku databse config
+DATABSES = {'default':dj_database_url.config(default='postgres://aqkqttoypgknct:Mbwjj2gxtRb0brY_Sgy45Wm3k3@ec2-54-83-199-54.compute-1.amazonaws.com:5432/d5mede92uhskss')}
+
 
 
 # Internationalization
