@@ -37,6 +37,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'accounts',
+    'medicaments',
+    'notifications',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -81,7 +84,7 @@ DATABASES = {
     }
 }
 
-
+AUTH_USER_MODEL = 'accounts.PharmacyUser'
 import dj_database_url
 #heroku databse config
 #DATABSES = {'default':dj_database_url.config(default='postgres://aqkqttoypgknct:Mbwjj2gxtRb0brY_Sgy45Wm3k3@ec2-54-83-199-54.compute-1.amazonaws.com:5432/d5mede92uhskss')}
@@ -102,7 +105,21 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = 'staticfiles'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+#Media file settings
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'development/media')

@@ -18,4 +18,12 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    #url(r'^accueil/', 'main.views.home', name='accueil'),
+    #url(r'^inscription$', 'accounts.views.register', name='inscription'),
+    #url(r'^login$', 'accounts.views.login', name='login'),
+    #url(r'^logout$', 'accounts.views.logout', name='logout'),
+    #url(r'^produits/$', MedicamentList.as_view(), name='produits'),
+    #url(r'^modifier/$','medicaments.views.updateview', name='modifier'),
+    #url(r'^creation/$', 'medicaments.views.createview', name='creation'),
+    #url(r'^indexe/$', 'medicaments.views.indexview', name='indexe'),
 ]
