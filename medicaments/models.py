@@ -30,7 +30,7 @@ class Medicament(models.Model):
     famille     = models.ForeignKey('Famille', blank=True, null=True)
     compagnie   = models.ForeignKey('Compagnie', blank=True, null=True)
     statut      = models.CharField(max_length= 16)
-    last_check  = models.DateTimeField(auto_now=True, auto_now_add=False)
+    verified  = models.DateTimeField(auto_now=True, auto_now_add=False)
 
     def __str__(self):
         return self.commercial

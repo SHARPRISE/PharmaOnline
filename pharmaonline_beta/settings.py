@@ -55,7 +55,7 @@ ROOT_URLCONF = 'pharmaonline_beta.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,7 +84,7 @@ DATABASES = {
 
 import dj_database_url
 #heroku databse config
-DATABSES = {'default':dj_database_url.config(default='postgres://aqkqttoypgknct:Mbwjj2gxtRb0brY_Sgy45Wm3k3@ec2-54-83-199-54.compute-1.amazonaws.com:5432/d5mede92uhskss')}
+#DATABSES = {'default':dj_database_url.config(default='postgres://aqkqttoypgknct:Mbwjj2gxtRb0brY_Sgy45Wm3k3@ec2-54-83-199-54.compute-1.amazonaws.com:5432/d5mede92uhskss')}
 
 
 
