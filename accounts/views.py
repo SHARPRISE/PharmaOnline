@@ -3,9 +3,11 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.core.mail import send_mail, BadHeaderError
 
 from .forms import RegistrationForm, LoginForm
 
+from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
 def register(request):
@@ -55,3 +57,20 @@ def login(request):
 def logout(request):
     logout(request)
     return HttpResponseRedirect("accounts/logout.html")
+
+
+
+def send_email(request):
+    subject = request.POST.get('subject', '')
+    message = request.POST.get('message', '')
+    from_email = request.POST.get('from_email', '')
+    if subject and message and from_email:
+        try:
+            send_mail(subject, message, from_email, ['admin@example.com'])
+        except BadHeaderError:
+            return HttpResponse('Invalid header found.')
+        return HttpResponseRedirect('/contact/thanks/')
+    else:
+        # In reality we'd use a form class
+        # to get proper validation errors.
+        return HttpResponse('Make sure all fields are entered and valid.')
