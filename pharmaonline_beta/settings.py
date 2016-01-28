@@ -37,9 +37,12 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #home made goodness
     'accounts',
     'medicaments',
     'notifications',
+    'contact_us',
+    #third party toppings
     'crispy_forms',
 )
 

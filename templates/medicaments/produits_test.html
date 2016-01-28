@@ -1,0 +1,12 @@
+{% extends 'medicaments/med_base.html' %}
+<body>
+{% block content %}
+	{% for medicament in queryset %}
+		<div class="jumbotron">
+			<h4>{{medicament.generique}}</h4>
+		</div>
+	{% empty %}
+		<p> Aucun Medicament </P>
+	{% endfor %}
+</body>
+{% endblock %}

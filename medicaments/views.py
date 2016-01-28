@@ -31,6 +31,14 @@ class MedicamentList(ListView):
     #    context = super(MedicamentList, self).get_context_data(**kwargs)
     #    context['']
 
+def med_list(request):
+    queryset = Medicament.objects.all()
+    template = "medicaments/produits_test.html"
+    context = {
+        "queryset": queryset,
+    }
+    return render(request, template, context)
+
 class MedicamentDetail(DetailView):
     model = Medicament
     template_name = "medicaments/detail.html"
