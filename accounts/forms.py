@@ -34,8 +34,8 @@ def save(self, commit=True):
 class RegistrationForm(forms.Form):
     name  = forms.CharField()
     email = forms.EmailField()
-    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
-    password1 = forms.CharField(label="Confirm Password", widget=forms.PasswordInput)
+    password1 = forms.CharField(label="Password", widget=forms.PasswordInput())
+    password2 = forms.CharField(label="Confirm Password", widget=forms.PasswordInput())
 
     def clean_password(self):
         password1 = self.cleaned_data.get('password1')

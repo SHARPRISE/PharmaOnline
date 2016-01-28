@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'accounts',
     'medicaments',
     'notifications',
+    'crispy_forms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -124,6 +125,20 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+#django-haystack settings
+HAYSTACK_CONNECTIONS = {
+	'default': {
+		'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+		'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+	},
+}
+HAYSTACK_RESULTS_PER_PAGE = 5
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+
+#crispy_forms settings
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 if DEBUG:
     #email settings

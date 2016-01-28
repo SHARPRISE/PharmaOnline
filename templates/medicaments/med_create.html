@@ -1,0 +1,22 @@
+{% extends 'medicaments/med_base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+   <div class="col-sm-4 col-sm-offset-3">
+     <form class="form-horizontal form-control-static" method='POST' action="{{ action_url }}">
+       {% csrf_token %}{{ form|crispy }}
+       <button class="btn btn-primary" type="submit">Ajouter Medicament</button>
+     </form>
+     {% if messages %}
+     <ul class="messages">
+       {% for message in messages %}
+       <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+       {% endfor %}
+     </ul>
+     {% endif %}
+      <div class="well well-sm"><p> Les champs marques d'un '*' sont obligatoires </p></div>
+   </div>
+
+{% endblock %}

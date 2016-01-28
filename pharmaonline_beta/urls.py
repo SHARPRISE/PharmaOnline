@@ -13,17 +13,22 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+from django.conf import settings
 from django.conf.urls import include, url
+from django.conf.urls import static
 from django.contrib import admin
+
+from medicaments.views import MedicamentList, MedicamentDetail
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    #url(r'^accueil/', 'main.views.home', name='accueil'),
-    #url(r'^inscription$', 'accounts.views.register', name='inscription'),
-    #url(r'^login$', 'accounts.views.login', name='login'),
-    #url(r'^logout$', 'accounts.views.logout', name='logout'),
-    #url(r'^produits/$', MedicamentList.as_view(), name='produits'),
-    #url(r'^modifier/$','medicaments.views.updateview', name='modifier'),
-    #url(r'^creation/$', 'medicaments.views.createview', name='creation'),
+    url(r'^accueil/', 'medicaments.views.MedicamentHome', name='accueil'),
+    url(r'^inscription$', 'accounts.views.register', name='inscription'),
+    url(r'^login/', 'accounts.views.auth_login', name='login'),
+    url(r'^produits/', MedicamentList.as_view(), name='produits'),
+    url(r'^logout$', 'accounts.views.auth_logout', name='logout'),
+    url(r'^creation/', 'medicaments.views.MedicamentCreate', name='creation'),
+    url(r'^modifier/(?P<id>\d+)/$','medicaments.views.MedicamentUpdate', name='modifier'),
+    url(r'^(?P<pk>\d+)/$', MedicamentDetail.as_view(), name='detail')
     #url(r'^indexe/$', 'medicaments.views.indexview', name='indexe'),
 ]

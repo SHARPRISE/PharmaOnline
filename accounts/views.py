@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.core.mail import send_mail, BadHeaderError
 
 from .forms import RegistrationForm, LoginForm
+from .models import PharmacyUser
 
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -13,50 +14,56 @@ from django.http import HttpResponse, HttpResponseRedirect
 def register(request):
     """ Simple registration view for new Pharmacies. """
     form = RegistrationForm(request.POST or None)
+    next_url = request.GET.get('next')
     if form.is_valid():
         name = form.cleaned_data['name']
         email = form.cleaned_data['email']
-        password = form.cleaned_data['password']
+        password = form.cleaned_data['password1']
         new_user = PharmacyUser()
         new_user.name = name
         new_user.email = email
-        new_user.password = set_password(password)
+        new_user.set_password(password)
         new_user.save()
 
+        messages.success(request, "Bienvenue %s" %(request.user))
+        if next_url is not None:
+            return HttpResponseRedirect(next_url)
+        return HttpResponseRedirect("/")
     next_url = "/"
     context = {
         "form": form,
         "next_url": next_url,
     }
-    return render(request, 'accounts/register.html', context)
+    return render(request, 'accounts/account_register.html', context)
 
-def login(request):
-    form = LoginForm(request.POST or None)
-    if form.is_valid():
-        email = form.cleaned_data['email']
-        password = form.cleaned_data['password']
-        user = authenticate(email=email, password=password)
-        if user:
-            login(request, user)
+def auth_login(request):
+	form = LoginForm(request.POST or None)
+	next_url = request.GET.get('next')
+	if form.is_valid():
+		email = form.cleaned_data['email']
+		password = form.cleaned_data['password']
+		user = authenticate(email=email, password=password)
+		if user is not None:
+			login(request, user)
+			if next_url is not None:
+				return HttpResponseRedirect(next_url)
+			return HttpResponseRedirect("/admin")
+	action_url = reverse("login")
+	title = "Login"
+	submit_btn = title
+	submit_btn_class = "btn-success btn-block"
+	context = {
+		"form": form,
+		"action_url": action_url,
+		"title": title,
+		"submit_btn": submit_btn,
+		"submit_btn_class": submit_btn_class,
+		}
+	return render(request, "accounts/account_login.html", context)
 
-            messages.INFO(request, "Bienvenue, %s" %(request.user))
-            if next_url:
-                return HttpResponseRedirect(next_url)
-            else:
-                return HttpResponseRedirect('/')
-        else:
-            raise form.ValidationError("Password and Email do not match. Try again.")
-        n_url = reverse("login")
-        submit_button = "Login"
-        context = {
-            "n_url": n_url,
-            "submit_button": submit_button,
-        }
-        return render(request, "accounts/login.html", context)
-
-def logout(request):
+def auth_logout(request):
     logout(request)
-    return HttpResponseRedirect("accounts/logout.html")
+    return HttpResponseRedirect("logout")
 
 
 

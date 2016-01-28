@@ -1,7 +1,13 @@
 from django import forms
 from .models import Medicament, Famille, Compagnie
 
-class MedicamentForm(form.ModelForm)
+class MedicamentForm(forms.ModelForm):
+    commercial= forms.CharField(label="Nom commercial du produit")
+    generique = forms.CharField(label="Nom generique du produit")
+    quantite  = forms.CharField(label="Contenu de l'unite")
+    description = forms.CharField(label="Decrivez le produit", widget=forms.Textarea)
+    stock     = forms.CharField(label="Grandeur de votre stock en ce produit")
+
     class Meta:
         model = Medicament
         fields = [
@@ -11,6 +17,7 @@ class MedicamentForm(form.ModelForm)
         'description',
         'famille',
         'stock',
+        'image',
          ]
     def clean_commercial(self):
         commercial = self.cleaned_data.get('commercial')
@@ -29,20 +36,18 @@ class MedicamentForm(form.ModelForm)
     def clean_quantite(self):
         quantite = self.cleaned_data.get('quantite')
         if not quantite:
-            raise forms.ValidationError("Entrez la quantite (masse/volume/comprimes)\n
-             "de medicament Disponible dans chaque unite")
+            raise forms.ValidationError("Entrez la quantite (masse/volume/comprimes) de medicament Disponible dans chaque unite")
         else:
-            return self.quantite
+            return quantite
 
     def clean_stock(self):
         stock = self.cleaned_data.get('stock')
         if  not stock:
-            raise forms.ValidationError("Veuillez entrer la quantite de \n
-            "medicaments disponibles")
+            raise forms.ValidationError("Veuillez entrer la quantite de medicaments disponibles")
         else:
             return stock
 
-class FamilleForm(self):
+class FamilleForm(forms.ModelForm):
     class Meta:
         model = Famille
         fields = ['nom', 'description']
@@ -63,7 +68,7 @@ class FamilleForm(self):
         else:
             return description
 
-class CompagnieForm(self):
+class CompagnieForm(forms.ModelForm):
     class Meta:
         model = Compagnie
         fields = ['nom', 'pays']
