@@ -7,8 +7,6 @@ from django.views.generic.list import ListView
 
 from accounts.models import PharmacyUser
 
-from haystack.forms import SearchForm
-
 from .models import Medicament, Famille, Compagnie
 from .forms import MedicamentForm
 
@@ -73,7 +71,9 @@ def public_med_list(request):
 
 def personal_med_list(request):
     queryset = Medicament.objects.filter(user= request.user)
-    
+    query = request.GET.get("q")
+    if query:
+        queryset_list = queryset_list.filter()
     template = "medicaments/produits_test.html"
     context = {
         "queryset": queryset,
