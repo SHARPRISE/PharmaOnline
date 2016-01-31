@@ -36,6 +36,9 @@ class Medicament(models.Model):
     def __str__(self):
         return self.commercial
 
+    def get_absolute_url(self):
+        return reverse('detail', kwargs={'slug': self.slug})
+
     def last_seen(self):
         return ("Disponible pour la derniere fois le: %s" %(self.verified))
 

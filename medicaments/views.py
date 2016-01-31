@@ -15,7 +15,6 @@ from .forms import MedicamentForm
 # Create your views here.
 
 def MedicamentHome(request):
-    form = SearchForm
     template = 'accounts/account_base.html'
     context = {
         "form": form,
@@ -23,27 +22,8 @@ def MedicamentHome(request):
     }
     return render(request, template, context)
 
-class MedicamentList(ListView):
-    model = Medicament
-    template_name = "medicaments/med_list.html"
-
-    #def get_context_data(self, **kwargs):
-    #    context = super(MedicamentList, self).get_context_data(**kwargs)
-    #    context['']
-
-def med_list(request):
-    queryset = Medicament.objects.all()
-    template = "medicaments/produits_test.html"
-    context = {
-        "queryset": queryset,
-    }
-    return render(request, template, context)
-
-class MedicamentDetail(DetailView):
-    model = Medicament
-    template_name = "medicaments/detail.html"
-
-
+#MEDICAMENTS
+#Vues de Creation et de modification
 def MedicamentCreate(request):
     form = MedicamentForm(request.POST or None)
     if form.is_valid():
@@ -72,3 +52,36 @@ def MedicamentUpdate(request, id=None):
         "instance": instance,
     }
     return render(request, template, context)
+
+
+#vues de liste
+class MedicamentList(ListView):
+    model = Medicament
+    template_name = "medicaments/med_list.html"
+
+    #def get_context_data(self, **kwargs):
+    #    context = super(MedicamentList, self).get_context_data(**kwargs)
+    #    context['']
+
+def public_med_list(request):
+    queryset = Medicament.objects.all()
+    template = "medicaments/produits_test.html"
+    context = {
+        "queryset": queryset,
+    }
+    return render(request, template, context)
+
+def personal_med_list(request):
+    queryset = Medicament.objects.filter(user= request.user)
+    
+    template = "medicaments/produits_test.html"
+    context = {
+        "queryset": queryset,
+    }
+    return render(request, template, context)
+
+
+#vues des elements individuellement
+class MedicamentDetail(DetailView):
+    model = Medicament
+    template_name = "medicaments/detail.html"

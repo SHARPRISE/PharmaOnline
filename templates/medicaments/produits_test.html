@@ -4,6 +4,7 @@
 	{% for medicament in queryset %}
 		<div class="jumbotron">
 			<h4>{{medicament.generique}}</h4>
+			<h4>{{medicament.last_seen}}</h4>
 		</div>
 	{% empty %}
 		<p> Aucun Medicament </P>
