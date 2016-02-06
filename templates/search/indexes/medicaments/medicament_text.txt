@@ -1,0 +1,4 @@
+{{ object.commercial }}
+{{ object.generique }}
+{{ object.description }}
+{{ object.user }}

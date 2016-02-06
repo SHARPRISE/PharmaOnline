@@ -74,7 +74,7 @@ def personal_med_list(request):
     query = request.GET.get("q")
     if query:
         queryset_list = queryset_list.filter()
-    template = "medicaments/produits_test.html"
+    template = "medicaments/med_list.html"
     context = {
         "queryset": queryset,
     }

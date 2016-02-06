@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'contact_us',
     #third party toppings
     'crispy_forms',
+    'haystack',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -133,6 +134,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #crispy_forms settings
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+
+#django-haystack settings
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'haystack',
+    },
+}
+
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+
+
 
 if DEBUG:
     #email settings
