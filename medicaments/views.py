@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -22,6 +23,8 @@ def MedicamentHome(request):
 
 #MEDICAMENTS
 #Vues de Creation et de modification
+
+@login_required
 def MedicamentCreate(request):
     form = MedicamentForm(request.POST or None)
     if form.is_valid():
@@ -36,6 +39,7 @@ def MedicamentCreate(request):
     }
     return render(request, template, context)
 
+@login_required
 def MedicamentUpdate(request, id=None):
     instance = get_object_or_404(Medicament, id=id)
     form = MedicamentForm(request.POST or None, instance=instance)
@@ -69,6 +73,7 @@ def public_med_list(request):
     }
     return render(request, template, context)
 
+@login_required
 def personal_med_list(request):
     queryset = Medicament.objects.filter(user= request.user)
     query = request.GET.get("q")
@@ -84,4 +89,4 @@ def personal_med_list(request):
 #vues des elements individuellement
 class MedicamentDetail(DetailView):
     model = Medicament
-    template_name = "medicaments/detail.html"
+    template_name = "medicaments/med_detail.html"

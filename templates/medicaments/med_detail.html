@@ -1,7 +1,13 @@
-{% extends 'medicaments/med_bae.html' %}
+{% extends 'medicaments/med_base.html' %}
 
 {% block content %}
+<div class='col-primary pull-left'>
+	<h1>Medicament: {{ medicament.commercial }} <small>by: {{ medicament.user }} </h1>
+	<p>{{ medicament.generique }}</p>
+  <p>Famille : {{ medicament.famille }}</p>
+	<p>{{ medicament.statut }}</p>
 
+</div>
 
 
 {% endblock %}
