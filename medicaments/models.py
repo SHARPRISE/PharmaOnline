@@ -1,6 +1,8 @@
 from django.db import models
 from django.db.models.signals import pre_save
 from django.conf import settings
+from django.core.urlresolvers import reverse
+
 
 from django.utils.text import slugify
 # Create your models here.
@@ -37,7 +39,7 @@ class Medicament(models.Model):
         return self.commercial
 
     def get_absolute_url(self):
-        return reverse('detail', kwargs={'slug': self.slug})
+        return reverse('detail', kwargs={'pk': self.pk})
 
     def last_seen(self):
         return ("Disponible pour la derniere fois le: %s" %(self.verified))

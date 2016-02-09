@@ -8,12 +8,15 @@ from django.views.generic.list import ListView
 
 from accounts.models import PharmacyUser
 
+
+
 from .models import Medicament, Famille, Compagnie
 from .forms import MedicamentForm
 
 # Create your views here.
 
 def MedicamentHome(request):
+    form = SearchForm
     template = 'accounts/account_base.html'
     context = {
         "form": form,
@@ -46,7 +49,7 @@ def MedicamentUpdate(request, id=None):
     if form.is_valid():
         instance = form.save(commit=False)
         instance.save()
-        instance.info(request, "Le medicament a ete modifie.")
+        messages.info(request, "Le medicament a ete modifie.")
         return HttpResponseRedirect(instance.get_absolute_url())
     template = "medicaments/med_update.html"
     context = {
