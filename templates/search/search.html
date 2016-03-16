@@ -1,0 +1,46 @@
+{% extends 'medicaments/med_base.html' %}
+{% load crispy_forms_tags %}
+
+
+
+{% block content %}
+
+
+    {% if query %}
+
+      <h3> Resultats </h3>
+
+      {% for result in page.object_list %}
+
+
+        <div class='container'>
+        {% if result.verbose_name == 'Medicament' %}
+
+          <h4>
+            <a href="{{ result.object.get_absolute_url }}">{{ result.object.commercial }}:</a>
+          </h4>
+            <p>{{ result.object.generique }}</p>
+            <p>{{ result.object.description }}</p>
+
+        {% elif result.verbose_name == 'Compagnie' %}
+          <h4> <a href="{{ result.object.get_absolute_url }}">{{ result.object.nom }}:</a></h4>
+            <p>{{ result.object.pays }}</p>
+
+        {% elif result.verbose_name == 'Famille' %}
+          <h4> <a href="{{ result.object.get_absolute_url }}">{{ result.object.nom }}:</a></h4>
+            <p>{{ result.object.description }}</p>
+
+
+        {% endif %}
+
+        </div>
+
+      {% empty %}
+        <p> Aucun Resultat. </p>
+
+      {% endfor %}
+
+    {% endif %}
+
+
+{% endblock %}

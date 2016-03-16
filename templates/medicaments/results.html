@@ -1,0 +1,26 @@
+{% extends 'medicaments/med_base.html' %}
+
+{% if query %}
+
+  <h3> Resultats </h3>
+
+  {% for results in page.object_list %}
+
+    {% if result.model_name == 'Medicament' %}
+      <h4> <a href="{{ result.object.get_absolute_url }}">{{ result.object.commercial }}:</a>
+        <p>{{ result.object.generique }}</p>
+        <p>{{ result.object.description }}</p>
+      </h4>
+    {% elif result.model_name == 'Compagnie' %}
+      <h4> <a href="{{ result.object.get_absolute_url }}">{{ result.object.nom }}:</a>
+        <p>{{ result.object.pays }}</p>
+      </h4>
+    {% elif result.model_name == 'Famille' %}
+      <h4> <a href="{{ result.object.get_absolute_url }}">{{ result.object.nom }}:</a>
+        <p>{{ result.object.description }}</p>
+      </h4>
+    {% endif %}
+
+  {% endfor %}
+
+{% endif %}

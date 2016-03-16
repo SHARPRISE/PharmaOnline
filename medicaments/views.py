@@ -1,6 +1,5 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.detail import DetailView
@@ -8,7 +7,8 @@ from django.views.generic.list import ListView
 
 from accounts.models import PharmacyUser
 
-
+from haystack.forms import SearchForm
+from haystack.generic_views import SearchView
 
 from .models import Medicament, Famille, Compagnie
 from .forms import MedicamentForm
@@ -17,12 +17,15 @@ from .forms import MedicamentForm
 
 def MedicamentHome(request):
     form = SearchForm
-    template = 'accounts/account_base.html'
+    template = 'medicaments/med_base.html'
     context = {
         "form": form,
         "Submit-btn": "Rechercher",
     }
     return render(request, template, context)
+
+#class ResultView(SearchView):
+#    template_name = 'medicaments/results.html'
 
 #MEDICAMENTS
 #Vues de Creation et de modification

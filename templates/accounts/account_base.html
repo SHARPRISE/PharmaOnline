@@ -42,7 +42,7 @@
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
               <li class="active"><a href="#">Carte <span class="sr-only">(current)</span></a></li>
-              <li><a href="#">Medicaments</a></li>
+              <li><a href="{% url 'produits' %}">Medicaments</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -52,7 +52,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon Compte <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li class="text-center"><a href="{% url 'creation' %}"> Ajouter des Medicaments </a></li>
-                  <li class="text-center"><a href="#"> Modifier les Medicaments </a></li>
+                  <li class="text-center"><a href="{% url 'produits' %}"> Modifier les Medicaments </a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="https://medoc.herokuapp.com">Aller a MeDOC</a></li>
                   <li><a href="{% url 'logout' %}">Se deconnecter</a></li>
