@@ -1,0 +1,31 @@
+{% extends 'medicaments/med_base.html' %}
+
+
+
+{% block content %}
+	{% for medicament in object_list %}
+		<div class="panel panel-default">
+			<div class="panel-heading">Medicament {{ forloop.counter }}</div>
+			<div class="panel-body">
+			</div>
+
+			<table class="table">
+				<tr>
+					<th> Nom Generique </th>
+					<th> Derniere m.a.j </th>
+					<th> pharmacie </th>
+				<tr>
+				  <td>
+						<a href="{{ medicament.get_absolute_url }}">{{medicament.generique}}</a>
+					</td>
+				  <td>{{medicament.verified|timesince}}</td>
+					<td>{{medicament.user}}</td>
+			  </tr>
+			</table>
+
+		</div>
+	{% empty %}
+		<p> Aucun Medicament </P>
+	{% endfor %}
+
+{% endblock %}

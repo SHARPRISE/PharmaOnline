@@ -15,7 +15,7 @@ from .forms import MedicamentForm
 
 # Create your views here.
 
-def MedicamentHome(request):
+def home(request):
     form = SearchForm
     template = 'medicaments/med_base.html'
     context = {
@@ -31,7 +31,7 @@ def MedicamentHome(request):
 #Vues de Creation et de modification
 
 @login_required
-def MedicamentCreate(request):
+def create_medicament(request):
     form = MedicamentForm(request.POST or None)
     if form.is_valid():
         medicament = form.save(commit=False)
@@ -46,7 +46,7 @@ def MedicamentCreate(request):
     return render(request, template, context)
 
 @login_required
-def MedicamentUpdate(request, id=None):
+def update_medicament(request, id=None):
     instance = get_object_or_404(Medicament, id=id)
     form = MedicamentForm(request.POST or None, instance=instance)
     if form.is_valid():
@@ -65,7 +65,7 @@ def MedicamentUpdate(request, id=None):
 #vues de liste
 class MedicamentList(ListView):
     model = Medicament
-    template_name = "medicaments/med_list.html"
+    template_name = "medicaments/private_list.html"
 
     #def get_context_data(self, **kwargs):
     #    context = super(MedicamentList, self).get_context_data(**kwargs)
@@ -73,18 +73,25 @@ class MedicamentList(ListView):
 
 def public_med_list(request):
     queryset = Medicament.objects.all()
-    template = "medicaments/produits_test.html"
+    template = "medicaments/public_list.html"
     context = {
         "queryset": queryset,
     }
     return render(request, template, context)
 
+
+class PrivateMedList(ListView):
+    template_name = "medicaments/private_list.html"
+
+    def get_queryset(self):
+        user = self.request.user
+        return Medicament.objects.filter(user = user)
+
+
+
 @login_required
 def personal_med_list(request):
     queryset = Medicament.objects.filter(user= request.user)
-    query = request.GET.get("q")
-    if query:
-        queryset_list = queryset_list.filter()
     template = "medicaments/med_list.html"
     context = {
         "queryset": queryset,
@@ -96,3 +103,8 @@ def personal_med_list(request):
 class MedicamentDetail(DetailView):
     model = Medicament
     template_name = "medicaments/med_detail.html"
+
+
+#vues de suppression
+#def delete_med(request, id=None):
+#    if not request.user.is_staff or request.user.is_superuser:

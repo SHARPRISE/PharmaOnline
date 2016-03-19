@@ -36,7 +36,9 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">PharmaOnline</a>
+          <a class="navbar-brand" href="{% url 'accueil' %}">
+            <img alt="Brand" src=""/>
+          </a>
         </div>
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -57,7 +59,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon Compte <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li class="text-center"><a href="{% url 'creation' %}">Ajouter des Medicaments</a></li>
-                  <li class="text-center"><a href="{% url 'modifier' %}">Modifier les Medicaments</a></li>
+                  <li class="text-center"><a href="{% url 'mes-produits' %}">Modifier les Medicaments</a></li>
                   <li role="separator" class="divider"></li>
                   <li class="text-center"><a href="https://medoc.herokuapp.com">Aller a MeDOC</a></li>
                   <li class="text-center"><a href="{% url 'logout' %}">Se deconnecter</a></li>

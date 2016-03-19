@@ -18,20 +18,18 @@ from django.conf.urls import include, url
 from django.conf.urls import static
 from django.contrib import admin
 
-from medicaments.views import MedicamentList, MedicamentDetail
+from medicaments.views import MedicamentList, MedicamentDetail, PrivateMedList
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^search/', include('haystack.urls')),
-    url(r'^accueil/', 'medicaments.views.MedicamentHome', name='accueil'),
+    url(r'^accueil/', 'medicaments.views.home', name='accueil'),
     url(r'^inscription$', 'accounts.views.register', name='inscription'),
     url(r'^login/', 'accounts.views.auth_login', name='login'),
     url(r'^produits/', 'medicaments.views.public_med_list', name='produits'),
     url(r'^mes-produits/', 'medicaments.views.personal_med_list', name='mes-produits'),
     url(r'^logout$', 'accounts.views.auth_logout', name='logout'),
-    url(r'^creation/', 'medicaments.views.MedicamentCreate', name='creation'),
-    url(r'^modifier/(?P<id>\d+)/$','medicaments.views.MedicamentUpdate', name='modifier'),
-    url(r'^(?P<pk>\d+)/$', MedicamentDetail.as_view(), name='detail')
-    #url(r'^resultats/', ResultView.as_view(), name='search_results'),
-    #url(r'^indexe/$', 'medicaments.views.indexview', name='indexe'),
+    url(r'^creation/', 'medicaments.views.create_medicament', name='creation'),
+    url(r'^modifier/(?P<id>\d+)/$','medicaments.views.update_medicament', name='modifier'),
+    url(r'^(?P<pk>\d+)/$', MedicamentDetail.as_view(), name='detail'),
 ]
