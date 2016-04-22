@@ -5,8 +5,8 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail, BadHeaderError
 
-from .forms import RegistrationForm, LoginForm
-from .models import PharmacyUser
+from .forms import RegistrationForm, LoginForm, CreateUser
+from .models import PharmacyUser, Pharmacy, NormalUser
 
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -27,14 +27,33 @@ def register(request):
 
         messages.success(request, "Bienvenue %s" %(request.user))
         if next_url is not None:
-            return HttpResponseRedirect(next_url)
-        return HttpResponseRedirect("/")
+            return redirect(next_url)
+        return redirect("/")
     next_url = "/"
     context = {
         "form": form,
         "next_url": next_url,
     }
     return render(request, 'accounts/account_register.html', context)
+
+def pharmacy_registration(request):
+    """An updated registration form, specifically for pharmacies."""
+    if request.method == 'POST':
+        user_form = CreateUser(request.POST or None, prefix='user')
+        pharmacy_form = Pharmacy(request.POST or None, prefix='pharmacy')
+        if user_form.is_valid() and pharmacy_form.is_valid():
+            user = user_form.save()
+            pharmacy = pharmacy_form.save(commit=False)
+            pharmacy.user = user
+            pharmacy.save()
+            return redirect('/')
+        else:
+            user_form = CreateUser(prefix='user')
+            pharmacy_form = Pharmacy(prefix='pharmacy')
+        return render(request, template, user_form, pharmacy_form)
+
+def bridge(request):
+    return render(request, 'accounts/account_pre_registration.html')
 
 def auth_login(request):
 	form = LoginForm(request.POST or None)

@@ -1,23 +1,15 @@
-{% extends 'general/general_base.html' %}
+{% extends 'medicaments/med_base.html' %}
 
 {% block content %}
 
-<section class="success">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h2> A propos de PharmaOnline </h2>
-      </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-4 col-lg-offset-2">
-            <p><b>En Haiti, il est bien trop souvent difficile de retrouver un simple medicament;</b> Les malades doivent souvent chercher partout avant de retrouver (s'ils ont de la chance), le medicament prescrit ou le produit necessaire.</p>
-        </div>
-        <div class="col-lg-4">
-            <p>  PharmaOnline a ete cree dans le but de faciliter l'acces aux medicaments, et dans une optique plus large, d'ameliorer les rapports entre les pharmacies, et autres provisionneurs de soins de sante, et le patient. </p>
-        </div>
-        <div class="col-lg-8 col-lg-offset-2 text-center">
-        </div>
-    </div>
+
+<!-- Google Style Search Bar with PharmaOnline Logo on top. !-->
+
+<form role="search" method="GET" action="{% url 'haystack_search' %}">
+  <div class="form-group">
+    <label>Search</label>
+    <input class="form-control" type="text" name='q' placeholder="Rechercher">
   </div>
-</section>
+</form>
+
+{% endblock %}
