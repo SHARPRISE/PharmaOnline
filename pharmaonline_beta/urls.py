@@ -20,6 +20,9 @@ from django.contrib import admin
 
 from medicaments.views import MedicamentList, MedicamentDetail, PrivateMedList
 
+from accounts import urls as accounts_urls
+
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^search/', include('haystack.urls')),
@@ -32,5 +35,6 @@ urlpatterns = [
     url(r'^creation/', 'medicaments.views.create_medicament', name='creation'),
     url(r'^modifier/(?P<id>\d+)/$','medicaments.views.update_medicament', name='modifier'),
     url(r'^(?P<pk>\d+)/$', MedicamentDetail.as_view(), name='detail'),
-    url(r'^comptes/', include("accounts.urls", namespace="accounts")),
+    url(r'^comptes/', include(accounts_urls, namespace="accounts")),
+    url(r'^pharmacie', 'accounts.views.pharmacy_registration', name="new-pharma"),
 ]

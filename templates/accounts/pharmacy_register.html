@@ -6,8 +6,9 @@
    <div class="col-sm-6 col-sm-offset-3">
 
      <form class="form-horizontal form-control-static" method='POST' action="{{ action_url }}">
-       {% csrf_token %}{{ user_form|crispy }}{{pharmacy_form|crispy}}
-       <button class="btn btn-lg btn-primary" type="{{ submit_button }}">Sign in</button>
+       {% csrf_token %}{{ pharmacy_form | crispy }}
+       {{ register_form | crispy }}
+       <button class="btn btn-lg btn-primary" type="{{ submit_button }}">Creer un compte</button>
      </form>
 
    </div>

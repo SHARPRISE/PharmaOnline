@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.core.mail import send_mail, BadHeaderError
 
-from .forms import RegistrationForm, LoginForm, CreateUser
+from .forms import RegistrationForm, LoginForm, CreateUser, PharmacyRegistrationForm
 from .models import PharmacyUser, Pharmacy, NormalUser
 
 from django.http import HttpResponse, HttpResponseRedirect
@@ -38,19 +38,26 @@ def register(request):
 
 def pharmacy_registration(request):
     """An updated registration form, specifically for pharmacies."""
-    if request.method == 'POST':
-        user_form = CreateUser(request.POST or None, prefix='user')
-        pharmacy_form = Pharmacy(request.POST or None, prefix='pharmacy')
-        if user_form.is_valid() and pharmacy_form.is_valid():
-            user = user_form.save()
-            pharmacy = pharmacy_form.save(commit=False)
-            pharmacy.user = user
-            pharmacy.save()
-            return redirect('/')
-        else:
-            user_form = CreateUser(prefix='user')
-            pharmacy_form = Pharmacy(prefix='pharmacy')
-        return render(request, template, user_form, pharmacy_form)
+    register_form = RegistrationForm(request.POST or None)
+    pharmacy_form = PharmacyRegistrationForm(request.POST or None)
+    if pharmacy_form.is_valid() and register_form.is_valid():
+        new_user = PharmacyUser()
+        new_user.name = name
+        new_user.email = email
+        new_user.set_password(password)
+        new_user.save()
+        pharmacy = pharmacy_form.save(commit=False)
+        pharmacy.user = new_user
+        pharmacy.adresse = adresse
+        pharmacy.horaire = horaire
+        pharmacy.proprietaire = proprietaire
+        pharmacy.save()
+        return redirect('/')
+    context = {
+        "pharmacy_form": pharmacy_form,
+        "register_form": register_form, 
+    }
+    return render(request, "accounts/pharmacy_register.html", context)
 
 def bridge(request):
     return render(request, 'accounts/account_pre_registration.html')

@@ -106,9 +106,11 @@ class SharpriseStaff(models.Model):
 
 class Pharmacy(models.Model):
     user = models.OneToOneField(PharmacyUser)
-    #address = models.CharField(max_length=255)
-    #phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
-    #phone_number = models.CharField(validators=[phone_regex], blank=True) # validators should be a list
+    address = models.CharField(max_length=255, blank=True)
+    proprietaire = models.CharField(max_length=255, blank=True)
+    horaire = models.CharField(max_length=255, blank=True)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    phone_number = models.CharField(max_length=30, validators=[phone_regex], blank=True) # validators should be a list
 
 
 class NormalUser(models.Model):
