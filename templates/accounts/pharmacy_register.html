@@ -1,0 +1,16 @@
+{% extends 'accounts/account_base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+   <div class="col-sm-6 col-sm-offset-3">
+
+     <form class="form-horizontal form-control-static" method='POST' action="{{ action_url }}">
+       {% csrf_token %}{{ pharmacy_form | crispy }}
+       {{ register_form | crispy }}
+       <button class="btn btn-lg btn-primary" type="{{ submit_button }}">Creer un compte</button>
+     </form>
+
+   </div>
+
+{% endblock %}

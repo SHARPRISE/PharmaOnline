@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="PharmaOnline web page">
+    <meta name="author" content="Henri E. Francois">
+  </head>
+
+
+  {% load staticfiles %}
+  <title>{% block title %}Bienvenue a PharmaOnline{% endblock %}</title>
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/freelancer.css' %}" />
+
+  <body>
+    <header>
+        <h1> Welcome to PharmaOnline </h1>
+    </header>

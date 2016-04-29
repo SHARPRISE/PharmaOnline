@@ -1,5 +1,7 @@
 from django import forms
-from .models import PharmacyUser
+from .models import PharmacyUser, Pharmacy, NormalUser
+
+from django.core.validators import RegexValidator
 
 class AdminRegistration(forms.ModelForm):
 
@@ -8,7 +10,7 @@ class AdminRegistration(forms.ModelForm):
 
     class Meta:
         model = PharmacyUser
-        fields = ['name', 'email', 'owner_first_name', 'owner_last_name']
+        fields = ['name', 'email', 'password']
 
     def clean_password(self):
         password1 = self.cleaned_data.get("password1")
@@ -23,12 +25,73 @@ class AdminRegistration(forms.ModelForm):
 
         return password2
 
-def save(self, commit=True):
-    user = super(AdminRegistration, self).save(commit=False)
-    user.set_password(self.cleaned_data.get["password1"])
-    if commit:
-        user.save()
-    return user
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        try:
+            exists = PharmacyUser.objects.get(name=name)
+            raise forms.ValidationError("This Pharmacy Already Exists.")
+        except PharmacyUser.DoesNotExist:
+                return(name)
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            exists = PharmacyUser.objects.get(email=email)
+            raise forms.ValidationError("This email is already in use.")
+        except PharmacyUser.DoesNotExist:
+            return email
+
+    def save(self, commit=True):
+        user = super(AdminRegistration, self).save(commit=False)
+        user.set_password(self.cleaned_data.get["password1"])
+        if commit:
+            user.save()
+        return user
+
+class CreateUser(forms.ModelForm):
+
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
+
+    class Meta:
+        model = PharmacyUser
+        fields = ['name', 'email', 'password']
+
+    def clean_password(self):
+        password1 = self.cleaned_data.get("password1")
+
+        if len(password1) < 7:
+            raise forms.ValidationError("Mot de Passe trop court.")
+
+        password2 = self.cleaned_data.get("password2")
+
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Les mots de passe ne concordent pas.")
+
+        return password2
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        try:
+            exists = PharmacyUser.objects.get(name=name)
+            raise forms.ValidationError("This Pharmacy Already Exists.")
+        except PharmacyUser.DoesNotExist:
+                return(name)
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            exists = PharmacyUser.objects.get(email=email)
+            raise forms.ValidationError("This email is already in use.")
+        except PharmacyUser.DoesNotExist:
+            return email
+
+    def save(self, commit=True):
+        user = super(CreateUser, self).save(commit=False)
+        user.set_password(self.cleaned_data.get["password1"])
+        if commit:
+            user.save()
+        return user
 
 
 class RegistrationForm(forms.Form):
@@ -64,6 +127,23 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError("This email is already in use.")
         except PharmacyUser.DoesNotExist:
             return email
+
+
+class PharmacyRegistrationForm(forms.ModelForm):
+    """A form for creating Pharmacies. Has to be used in tandem with the
+    standard RegistrationForm."""
+
+    class Meta:
+        model = Pharmacy
+        exclude = ['user']
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super(PharmacyRegistrationForm, self).save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
 
 class LoginForm(forms.Form):
     email = forms.CharField(label="Email")

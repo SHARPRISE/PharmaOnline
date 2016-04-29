@@ -17,13 +17,17 @@ from django.conf import settings
 from django.conf.urls import include, url, static
 from django.contrib import admin
 
+
 from medicaments.views import MedicamentList, MedicamentDetail, PrivateMedList
+
+from accounts import urls as accounts_urls
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^search/', include('haystack.urls')),
-    url(r'^accueil/', 'medicaments.views.home', name='accueil'),
-    url(r'^inscription$', 'accounts.views.register', name='inscription'),
+    url(r'^$', 'general.views.landing', name='accueil'),
+    #url(r'^inscription$', 'accounts.views.register', name='inscription'),
     url(r'^login/', 'accounts.views.auth_login', name='login'),
     url(r'^produits/', 'medicaments.views.public_med_list', name='produits'),
     url(r'^mes-produits/', 'medicaments.views.personal_med_list', name='mes-produits'),
@@ -31,4 +35,6 @@ urlpatterns = [
     url(r'^creation/', 'medicaments.views.create_medicament', name='creation'),
     url(r'^modifier/(?P<id>\d+)/$','medicaments.views.update_medicament', name='modifier'),
     url(r'^(?P<pk>\d+)/$', MedicamentDetail.as_view(), name='detail'),
+    url(r'^comptes/', include(accounts_urls, namespace="accounts")),
+    url(r'^pharmacie', 'accounts.views.pharmacy_registration', name="new-pharma"),
 ]
