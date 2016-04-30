@@ -9,15 +9,11 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
 
     <title>PharmaOnline</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}" />
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="{% static 'css/cover.css' %}" rel="stylesheet">
@@ -49,30 +45,28 @@ body {
 
           <div class="masthead clearfix">
             <div class="inner">
-              <a class="navbar-brand" href="{% url 'accueil' %}">
-                <img alt="Brand" src="{% static "img/quick-pharma-logo.png" %}" height="40px" width="40px"/>
-              </a>
               <nav>
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="#">Home</a></li>
-                  <li><a href="#">Features</a></li>
-                  <li><a href="#">Contact</a></li>
+                  <li><a href="#">About</a></li>
+                  <li><a href="{% url 'account_choice'}">Sign-up</a></li>
+                  <li><a href="{% url ''}">Login</a></li>
                 </ul>
               </nav>
             </div>
           </div>
 
-          <div class="container">
+          <div class="container-fluid">
             <a class="" href="{% url 'accueil' %}">
-              <img alt="Brand" src="{% static "img/quick-pharma-logo.png" %}" height="100px" width="100px"/>
+              <img alt="Brand" src="{% static "img/quick-pharma-logo.png" %}" height="57%" width="57%"/>
             </a>
           </div>
 
 
           <div class="container">
-            <form class="" role="search" method="GET" action="{% url 'haystack_search'%}">
+            <form class="form-control-static" role="search" method="GET" action="{% url 'haystack_search'%}">
           	<div class="form-group">
-              <div class="input-group col-md-6">
+              <div class="input-group col-md-7">
                 <input type="text" class="search-query form-control" placeholder="Search" />
                 <span class="input-group-btn">
                   <button type="submit" class="btn btn-danger" type="button">

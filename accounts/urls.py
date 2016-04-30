@@ -13,6 +13,6 @@ urlpatterns = [
     url(r'^inscription', register, name='inscription-normale'),
     url(r'^identification', auth_login, name='indentification'),
     url(r'^deconnection', auth_logout, name='deconnection'),
-    url(r'^inscription-pharmacie', "accounts.views.pharmacy_registration", name='new_pharmacy'),
+    url(r'^pharmacie', "accounts.views.pharmacy_registration", name='new_pharmacy'),
     url(r'^choix', bridge, name='account_choice'),
 ]
