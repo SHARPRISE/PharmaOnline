@@ -4,7 +4,7 @@
 
 {% block content %}
 		<div class="panel panel-default">
-			<div class="panel-heading">Medicament</div>
+			<div class="panel-heading">Medicaments</div>
 			<div class="panel-body">
 			</div>
 			<table class="table">
@@ -16,7 +16,7 @@
 				{% for medicament in queryset %}
 					<tr>
 				  	<td>{{forloop.counter}}-<a href="{{ medicament.get_absolute_url }}">{{medicament.generique}}</a></td>
-				  	<td>{{medicament.verified|timesince}}</td>
+				  	<td>{{medicament.verified|timesince}} ago</td>
 						<td>{{medicament.user}}</td>
 			  	</tr>
 				{% empty %}

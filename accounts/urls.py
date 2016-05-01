@@ -11,8 +11,8 @@ from .views import (
 
 urlpatterns = [
     url(r'^inscription', register, name='inscription-normale'),
-    url(r'^identification', auth_login, name='indentification'),
-    url(r'^deconnection', auth_logout, name='deconnection'),
-    url(r'^pharmacie', "accounts.views.pharmacy_registration", name='new_pharmacy'),
+    url(r'^identification', auth_login, name='login'),
+    url(r'^deconnection', auth_logout, name='logout'),
+    url(r'^pharmacie', pharmacy_registration, name='new_pharmacy'),
     url(r'^choix', bridge, name='account_choice'),
 ]

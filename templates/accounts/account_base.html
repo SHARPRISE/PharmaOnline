@@ -43,8 +43,8 @@
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li><a href="#">Carte</a></li>
               <li><a href="{% url 'produits' %}">Medicaments</a></li>
+              <li><a href="#">Carte</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -62,6 +62,7 @@
               </li>
               {% else %}
               <li><a href="{% url 'login' %}">login</a></li>
+              <li><a href="{% url 'accounts:account_choice' %}">Register</a></li>
               {% endif %}
             </ul>
           </div><!-- /.navbar-collapse -->

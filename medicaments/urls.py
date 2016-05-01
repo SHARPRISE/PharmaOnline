@@ -17,4 +17,5 @@ urlpatterns = [
     url(r'^modifier', update_medicament, name="modifier"),
     url(r'^medicaments', public_med_list, name="liste-publique"),
     url(r'^inventaire', personal_med_list, name='inventaire'),
+    url(r'^item/(?P<pk>\d+)/$', MedicamentDetail.as_view(), name='detail'),
 ]

@@ -49,8 +49,8 @@ body {
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="#">Home</a></li>
                   <li><a href="#">About</a></li>
-                  <li><a href="{% url 'account_choice'}">Sign-up</a></li>
-                  <li><a href="{% url ''}">Login</a></li>
+                  <li><a href="{% url 'accounts:account_choice' %}">Sign-up</a></li>
+                  <li><a href="{% url 'accounts:login' %}">Login</a></li>
                 </ul>
               </nav>
             </div>
@@ -77,6 +77,15 @@ body {
           	</div>
           </form>
           </div>
+
+          {% if messages %}
+            <div class="alert alert-success" role="alert">
+              {% for message in messages %}
+              <p> <strong>Welcome!</strong> {{ message }} </p>
+              {% endfor %}
+            </div>
+          {% endif %}
+
 
           <div class="mastfoot">
             <div class="inner">

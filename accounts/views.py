@@ -14,7 +14,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 def register(request):
     """ Simple registration view for new Pharmacies. """
     form = RegistrationForm(request.POST or None)
-    next_url = request.GET.get('next')
     if form.is_valid():
         name = form.cleaned_data['name']
         email = form.cleaned_data['email']
@@ -26,8 +25,6 @@ def register(request):
         new_user.save()
 
         messages.success(request, "Bienvenue %s" %(request.user))
-        if next_url is not None:
-            return redirect(next_url)
         return redirect("/")
     next_url = "/"
     context = {
@@ -41,6 +38,9 @@ def pharmacy_registration(request):
     register_form = RegistrationForm(request.POST or None)
     pharmacy_form = PharmacyRegistrationForm(request.POST or None)
     if pharmacy_form.is_valid() and register_form.is_valid():
+        name = register_form.cleaned_data['name']
+        email = register_form.cleaned_data['email']
+        password = register_form.cleaned_data['password1']
         new_user = PharmacyUser()
         new_user.name = name
         new_user.email = email
@@ -55,7 +55,7 @@ def pharmacy_registration(request):
         return redirect('/')
     context = {
         "pharmacy_form": pharmacy_form,
-        "register_form": register_form, 
+        "register_form": register_form,
     }
     return render(request, "accounts/pharmacy_register.html", context)
 

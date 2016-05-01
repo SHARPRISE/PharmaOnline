@@ -8,8 +8,8 @@
         <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="{% url 'accueil' %}">Home</a></li>
-            <li role="presentation"><a href="#">Pharmacie</a></li>
-            <li role="presentation"><a href="#">Particulier</a></li>
+            <li role="presentation" class="disabled"><a href="#">Pharmacies</a></li>
+            <li role="presentation" class="disabled"><a href="#">Individuals</a></li>
           </ul>
         </nav>
         <h3 class="text-muted">PharmaOnline</h3>
@@ -18,12 +18,14 @@
       <div class="jumbotron">
         <h1>A solution to the Pharmacy Crisis.</h1>
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="{% url 'inscription-normale' %}" role="button">Sign up today</a></p>
+        <p><a class="btn btn-lg btn-success" href="{% url 'accounts:inscription-normale' %}" role="button">Sign up today</a></p>
       </div>
 
       <div class="row marketing">
         <div class="col-lg-6">
-          <h4>Subheading</h4>
+          <h4>The Pharmacy</h4>
+          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo,<br> tortor mauris  condimentum nibh, ut fermentum massa justo <br> sit amet risus.</p>
+          <button class="btn btn-md btn-success" href="{% url 'accounts:pharmacie'}"
         </div>
 
         <div class="col-lg-6">
