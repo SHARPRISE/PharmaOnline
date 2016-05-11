@@ -7,20 +7,23 @@
 
 
     {% if query %}
-
-      <h3> Resultats </h3>
+      <div class="page-header">
+        <h3> Resultats </h3>
+      </div>
 
       {% for result in page.object_list %}
 
 
-        <div class='container'>
+        <div class='media'>
+          <div class="media-left">
         {% if result.verbose_name == 'Medicament' %}
 
-          <h4>
             <a href="{{ result.object.get_absolute_url }}">{{ result.object.commercial }}:</a>
-          </h4>
-            <p>{{ result.object.generique }}</p>
-            <p>{{ result.object.description }}</p>
+              <img class="mdeia-object" src=""/>
+            <div class="media-body">
+              <p>{{ result.object.generique }}</p>
+              <p>{{ result.object.description }}</p>
+            </div>
 
         {% elif result.verbose_name == 'Compagnie' %}
           <h4> <a href="{{ result.object.get_absolute_url }}">{{ result.object.nom }}:</a></h4>
@@ -33,6 +36,7 @@
 
         {% endif %}
 
+          </div>
         </div>
 
       {% empty %}

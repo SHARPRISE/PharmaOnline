@@ -67,7 +67,7 @@ body {
             <form class="form-control-static" role="search" method="GET" action="{% url 'haystack_search'%}">
           	<div class="form-group">
               <div class="input-group col-md-7">
-                <input type="text" class="search-query form-control" placeholder="Search" />
+                <input class="search-query form-control" type="text" name="q" placeholder="Search">
                 <span class="input-group-btn">
                   <button type="submit" class="btn btn-danger" type="button">
                     <span class="glyphicon glyphicon-search"></span>
@@ -75,7 +75,7 @@ body {
                 </span>
               </div>
           	</div>
-          </form>
+            </form>
           </div>
 
           {% if messages %}

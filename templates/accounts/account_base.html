@@ -43,8 +43,8 @@
 
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-              <li><a href="{% url 'produits' %}">Medicaments</a></li>
-              <li><a href="#">Carte</a></li>
+              <li><a href="{% url 'medicaments:liste-publique' %}">Medicaments</a></li>
+              <li class="disabled"><a href="#">Carte</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -53,21 +53,22 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon Compte <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li class="text-center"><a href="{% url 'creation' %}"> Ajouter des Medicaments </a></li>
-                  <li class="text-center"><a href="{% url 'mes-produits' %}"> Modifier les Medicaments </a></li>
+                  <li class="text-center"><a href="{% url 'medicaments:ajouter' %}"> Ajouter des Medicaments </a></li>
+                  <li class="text-center"><a href="{% url 'medicaments:inventaire' %}"> Modifier les Medicaments </a></li>
                   <li role="separator" class="divider"></li>
                   <li><a href="https://medoc.herokuapp.com">Aller a MeDOC</a></li>
-                  <li><a href="{% url 'logout' %}">Se deconnecter</a></li>
+                  <li><a href="{% url 'accounts:logout' %}">Se deconnecter</a></li>
                 </ul>
               </li>
               {% else %}
-              <li><a href="{% url 'login' %}">login</a></li>
+              <li><a href="{% url 'accounts:login' %}">login</a></li>
               <li><a href="{% url 'accounts:account_choice' %}">Register</a></li>
               {% endif %}
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
       </nav>
+
       {% block content %}
       {% endblock %}
       <!-- Footer -->
