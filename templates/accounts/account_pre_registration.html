@@ -18,22 +18,24 @@
       <div class="jumbotron">
         <h1>A solution to the Pharmacy Crisis.</h1>
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="{% url 'accounts:inscription-normale' %}" role="button">Sign up today</a></p>
       </div>
 
       <div class="row marketing">
         <div class="col-lg-6">
           <h4>The Pharmacy</h4>
           <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo,<br> tortor mauris  condimentum nibh, ut fermentum massa justo <br> sit amet risus.</p>
-          <button class="btn btn-md btn-success" href="{% url 'accounts:pharmacie'}"
+          <a class="btn btn-primary" href="{% url 'accounts:new_pharmacy' %}">new pharmacy</a>
         </div>
 
+      <div class="row marketing">
         <div class="col-lg-6">
-          <h4>Subheading</h4>
+          <h4>The Client</h4>
+          <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo,<br> tortor mauris  condimentum nibh, ut fermentum massa justo <br> sit amet risus.</p>
+          <a class="btn btn-success" href="{% url 'accounts:inscription-normale' %}">New client</a>
         </div>
       </div>
 
-    </div> <!-- /container -->
+</div> <!-- /container -->
 
 
 

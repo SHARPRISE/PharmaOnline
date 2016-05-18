@@ -74,13 +74,11 @@ def auth_login(request):
 			if next_url is not None:
 				return HttpResponseRedirect(next_url)
 			return HttpResponseRedirect("/admin")
-	action_url = reverse("login")
 	title = "Login"
 	submit_btn = title
 	submit_btn_class = "btn-success btn-block"
 	context = {
 		"form": form,
-		"action_url": action_url,
 		"title": title,
 		"submit_btn": submit_btn,
 		"submit_btn_class": submit_btn_class,

@@ -94,6 +94,17 @@ class CreateUser(forms.ModelForm):
         return user
 
 
+SCHEDULE_CHOICES = (
+    ('lundi', 'Lundi'),
+    ('mardi', 'Mardi'),
+    ('mercredi', 'Mercredi'),
+    ('jeudi', 'Jeudi'),
+    ('vendredi', 'Vendredi'),
+    ('samedi', 'Samedi'),
+    ('dimanche', 'Dimanche'),
+)
+
+
 class RegistrationForm(forms.Form):
     name  = forms.CharField()
     email = forms.EmailField()
@@ -134,6 +145,8 @@ class PharmacyRegistrationForm(forms.ModelForm):
     standard RegistrationForm."""
     name  = forms.CharField()
     email = forms.EmailField()
+    horaire =  forms.MultipleChoiceField(required=True,
+        widget=forms.RadioSelect, choices=SCHEDULE_CHOICES)
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput())
     password2 = forms.CharField(label="Confirm Password", widget=forms.PasswordInput())
 
@@ -148,7 +161,7 @@ class PharmacyRegistrationForm(forms.ModelForm):
             user.save()
         return user
 
-        
+
     def clean_password(self):
         password1 = self.cleaned_data.get('password1')
         if len(password1) < 6:
