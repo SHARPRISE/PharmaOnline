@@ -1,5 +1,5 @@
 from haystack import indexes
-from .models import Medicament
+from .models import Medicament, Compagnie
 
 #definition of search indexes
 
@@ -11,3 +11,11 @@ class MedicamentIndex(indexes.SearchIndex, indexes.Indexable):
 
     def get_model(self):
         return Medicament
+
+class CompagnieIndex(indexes.SearchIndex, indexes.Indexable):
+    text  = indexes.CharField(document=True, use_template=True)
+    nom   = indexes.CharField(model_attr='nom')
+    pays  = indexes.CharField(model_attr='pays')
+
+    def get_model(self):
+        return Compagnie

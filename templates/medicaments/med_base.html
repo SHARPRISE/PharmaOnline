@@ -60,7 +60,8 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mon Compte <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li class="text-center"><a href="{% url 'medicaments:ajouter' %}">Ajouter des Medicaments</a></li>
-                  <li class="text-center"><a href="{% url 'medicaments:inventaire' %}">Modifier les Medicaments</a></li>
+                  <li class="text-center"><a href="{% url 'medicaments:inventaire' %}">inventaire</a></li>
+                  <li class="text-center"><a href="">Gestion du compte</a></li>
                   <li role="separator" class="divider"></li>
                   <li class="text-center"><a href="https://medoc.herokuapp.com">Aller a MeDOC</a></li>
                   <li class="text-center"><a href="{% url 'accounts:logout' %}">Se deconnecter</a></li>
@@ -78,12 +79,6 @@
       {% endblock %}
 
       <!-- Footer -->
-      <footer class="footer">
-        <div class="container">
-          <p>Copyright &copy; PharmaOnline 2016</p>
-      </footer>
-
-
 
       <div class="scroll-top page-scroll visible-xs visible-sm">
           <a class="btn btn-primary" href="#page-top">

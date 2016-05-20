@@ -3,7 +3,7 @@
 
 
 {% block content %}
-	{% for medicament in object_list %}
+	{% for medicament in queryset %}
 		<div class="panel panel-default">
 			<div class="panel-heading">Medicament {{ forloop.counter }}</div>
 			<div class="panel-body">
@@ -20,6 +20,9 @@
 					</td>
 				  <td>{{medicament.verified|timesince}}</td>
 					<td>{{medicament.user}}</td>
+					<td>
+						<a class="btn btn-primary" href="{{ medicament.get_modification_url }}"> Modifier </a>
+					</td>
 			  </tr>
 			</table>
 

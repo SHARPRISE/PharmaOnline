@@ -46,8 +46,8 @@ def create_medicament(request):
     return render(request, template, context)
 
 @login_required
-def update_medicament(request, id=None):
-    instance = get_object_or_404(Medicament, id=id)
+def update_medicament(request, pk=None):
+    instance = get_object_or_404(Medicament, pk=pk)
     form = MedicamentForm(request.POST or None, instance=instance)
     if form.is_valid():
         instance = form.save(commit=False)
@@ -92,7 +92,7 @@ class PrivateMedList(ListView):
 @login_required
 def personal_med_list(request):
     queryset = Medicament.objects.filter(user= request.user)
-    template = "medicaments/med_list.html"
+    template = "medicaments/private_list.html"
     context = {
         "queryset": queryset,
     }

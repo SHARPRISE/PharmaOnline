@@ -41,6 +41,9 @@ class Medicament(models.Model):
     def get_absolute_url(self):
         return reverse('medicaments:detail', kwargs={'pk': self.pk})
 
+    def get_modification_url(self):
+        return reverse('medicaments:modifier', kwargs={'pk': self.pk})
+
     def last_seen(self):
         return ("Disponible pour la derniere fois le: %s" %(self.verified))
 
