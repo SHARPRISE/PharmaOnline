@@ -30,7 +30,3 @@ urlpatterns = [
     url(r'^comptes/', include("accounts.urls", namespace="accounts")),
     url(r'^medicaments/', include("medicaments.urls", namespace="medicaments")),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=STATIC_ROOT)
-    urlpatterns += static(settings.MEDIA_URL, document_root=MEDIA_ROOT)
