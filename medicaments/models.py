@@ -33,7 +33,7 @@ class Medicament(models.Model):
     compagnie   = models.ForeignKey('Compagnie', blank=True, null=True)
     statut      = models.CharField(max_length= 255)
     verified    = models.DateTimeField(auto_now=True, auto_now_add=False)
-    image       = models.FileField(blank=True, null=True)
+    image       = models.ImageField(blank=True, upload_to="drug_labels")
 
     def __str__(self):
         return self.commercial

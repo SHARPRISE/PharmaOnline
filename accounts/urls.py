@@ -2,7 +2,7 @@ from django.conf import settings
 from django.conf.urls import url
 
 from .views import (
-        register,
+        client_registration,
         auth_login,
         auth_logout,
         pharmacy_registration,
@@ -10,7 +10,7 @@ from .views import (
         )
 
 urlpatterns = [
-    url(r'^inscription', register, name='inscription-normale'),
+    url(r'^inscription', client_registration, name='inscription-normale'),
     url(r'^identification', auth_login, name='login'),
     url(r'^deconnection', auth_logout, name='logout'),
     url(r'^pharmacie', pharmacy_registration, name='new_pharmacy'),

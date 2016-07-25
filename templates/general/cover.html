@@ -48,9 +48,13 @@ body {
               <nav>
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="#">Home</a></li>
-                  <li><a href="#">About</a></li>
+                  <li><a href="{% url 'about' %}">About</a></li>
                   <li><a href="{% url 'accounts:account_choice' %}">Sign-up</a></li>
+                  {% if request.user.is_authenticated %}
+                  <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                  {% else %}
                   <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                  {% endif %}
                 </ul>
               </nav>
             </div>
@@ -67,7 +71,7 @@ body {
             <form class="form-control-static" role="search" method="GET" action="{% url 'haystack_search'%}">
           	<div class="form-group">
               <div class="input-group col-md-7">
-                <input class="search-query form-control" type="text" name="q" placeholder="Search">
+                <input class="search-query form-control" type="text" name="q" placeholder="Search for medecine or supplies">
                 <span class="input-group-btn">
                   <button type="submit" class="btn btn-danger" type="button">
                     <span class="glyphicon glyphicon-search"></span>
@@ -79,11 +83,11 @@ body {
           </div>
 
           {% if messages %}
-            <div class="alert alert-success" role="alert">
+            <ul class="messages">
               {% for message in messages %}
-              <p> <strong>Welcome!</strong> {{ message }} </p>
+              <li {% if messages.tags %} class="{{ messages.tags }}" {% endif %}>{{ message }}</li>
               {% endfor %}
-            </div>
+            </ul>
           {% endif %}
 
 

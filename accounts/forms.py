@@ -3,6 +3,15 @@ from .models import PharmacyUser, Pharmacy, NormalUser
 
 from django.core.validators import RegexValidator
 
+
+
+def has_number(string):
+    return any(char.isdigit() for char in string)
+
+def has_upper(string):
+    return any(char.isupper() for char in string)
+
+
 class AdminRegistration(forms.ModelForm):
 
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
@@ -106,8 +115,8 @@ SCHEDULE_CHOICES = (
 
 
 class RegistrationForm(forms.Form):
-    name  = forms.CharField()
-    email = forms.EmailField()
+    name  = forms.CharField(label="Entrez votre nom complet")
+    email = forms.EmailField(label="Entrez votre adresse email")
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput())
     password2 = forms.CharField(label="Confirm Password", widget=forms.PasswordInput())
 
@@ -115,9 +124,8 @@ class RegistrationForm(forms.Form):
         password1 = self.cleaned_data.get('password1')
         if len(password1) < 6:
             raise forms.ValidationError("Password must contain at least 6 characters.")
-        #if (password1.islower() or password1.isdigit()):
-        #    raise forms.ValidationError("Password must contain at least: n\
-        #    1 uppercase letter and 1 number. Try again.")
+        if not (has_upper(password1) or has_number(password1)):
+            raise forms.ValidationError("Password must contain at least: 1 uppercase letter and 1 number. Try again.")
         password2 = self.cleaned_data.get('password2')
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("The passwords you have entered do not match.")
@@ -143,12 +151,7 @@ class RegistrationForm(forms.Form):
 class PharmacyRegistrationForm(forms.ModelForm):
     """A form for creating Pharmacies. Has to be used in tandem with the
     standard RegistrationForm."""
-    name  = forms.CharField()
-    email = forms.EmailField()
-    horaire =  forms.MultipleChoiceField(required=True,
-        widget=forms.RadioSelect, choices=SCHEDULE_CHOICES)
-    password1 = forms.CharField(label="Password", widget=forms.PasswordInput())
-    password2 = forms.CharField(label="Confirm Password", widget=forms.PasswordInput())
+    horaire =  forms.CharField(label="Your pharmacy's schedule.", widget=forms.Textarea)
 
     class Meta:
         model = Pharmacy

@@ -8,11 +8,10 @@ from django.core.mail import send_mail, BadHeaderError
 from .forms import RegistrationForm, LoginForm, CreateUser, PharmacyRegistrationForm
 from .models import PharmacyUser, Pharmacy, NormalUser
 
-from django.http import HttpResponse, HttpResponseRedirect
 
 # Create your views here.
-def register(request):
-    """ Simple registration view for new Pharmacies. """
+def client_registration(request):
+    """ Simple registration view for new clients. """
     form = RegistrationForm(request.POST or None)
     if form.is_valid():
         name = form.cleaned_data['name']
@@ -26,6 +25,8 @@ def register(request):
 
         messages.success(request, "Bienvenue %s" %(request.user))
         return redirect("/")
+    else:
+        form = RegistrationForm(request.POST or None)
     next_url = "/"
     context = {
         "form": form,
@@ -35,9 +36,9 @@ def register(request):
 
 def pharmacy_registration(request):
     """An updated registration form, specifically for pharmacies."""
-    register_form = RegistrationForm(request.POST or None)
     pharmacy_form = PharmacyRegistrationForm(request.POST or None)
-    if pharmacy_form.is_valid() and register_form.is_valid():
+    register_form = RegistrationForm(request.POST or None)
+    if register_form.is_valid() and pharmacy_form.is_valid():
         name = register_form.cleaned_data['name']
         email = register_form.cleaned_data['email']
         password = register_form.cleaned_data['password1']
@@ -54,8 +55,8 @@ def pharmacy_registration(request):
         pharmacy.save()
         return redirect('/')
     context = {
-        "pharmacy_form": pharmacy_form,
         "register_form": register_form,
+        "pharmacy_form": pharmacy_form,
     }
     return render(request, "accounts/pharmacy_register.html", context)
 
@@ -73,7 +74,8 @@ def auth_login(request):
 			login(request, user)
 			if next_url is not None:
 				return HttpResponseRedirect(next_url)
-			return HttpResponseRedirect("/admin")
+			return HttpResponseRedirect("/")
+
 	title = "Login"
 	submit_btn = title
 	submit_btn_class = "btn-success btn-block"
@@ -87,7 +89,8 @@ def auth_login(request):
 
 def auth_logout(request):
     logout(request)
-    return HttpResponseRedirect("login")
+    messages.info(request, "Vous vous etes deconnectes avec succes.")
+    return HttpResponseRedirect(reverse('accounts:login'))
 
 
 

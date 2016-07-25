@@ -18,15 +18,14 @@ from django.conf.urls import include, url, static
 from django.contrib import admin
 
 
-from medicaments.views import MedicamentList, MedicamentDetail, PrivateMedList
-
-from accounts import urls as accounts_urls
-
 
 urlpatterns = [
     url(r'^$', 'general.views.landing', name='accueil'),
+    url(r'^dashboard', 'general.views.dashboard', name='dashboard'),
+    url(r'^about-us', 'general.views.about', name='about'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^search/', include('haystack.urls')),
     url(r'^comptes/', include("accounts.urls", namespace="accounts")),
     url(r'^medicaments/', include("medicaments.urls", namespace="medicaments")),
+    url(r'^contact/', include("contact_us.urls", namespace="contact_us"))
 ]

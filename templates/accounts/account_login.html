@@ -2,14 +2,16 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+  <div class="row">
+     <div class="col-sm-6 col-sm-offset-3">
+       <div class="panel"><p><i> Bienvenue, veuillez saisir votre adresse e-mail et votre mot de passe</i></p></div>
 
-   <div class="col-sm-6 col-sm-offset-3">
+       <form class="form-horizontal form-control-static" method='POST' action="{{ action_url }}">
+         {% csrf_token %}{{ form|crispy }}
+         <input class="btn btn-block btn-primary" type="Submit" value="Sign In" />
+         <p>Si vous n'avez pas de compte,vous pouvez <a href="{% url 'accounts:account_choice' %}">En creer un en cliquant ici</a> </p>
+       </form>
 
-     <form class="form-horizontal form-control-static" method='POST' action="{{ action_url }}">
-       {% csrf_token %}{{ form|crispy }}
-       <button class="btn btn-md btn-primary" type="{{ submit_button }}">Sign in</button>
-     </form>
-
-   </div>
-
+     </div>
+  </div>
 {% endblock %}

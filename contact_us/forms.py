@@ -35,3 +35,13 @@ class MessageContact(forms.ModelForm):
             raise forms.ValidationError("Entrez une adresse email")
 
         return email
+
+    def clean_name(self):
+        first_name = self.cleaned_data.get('first_name')
+        Last_name  = self.cleaned_data.get('Last_name')
+        if not first_name:
+            raise forms.ValidationError("Entrez votre prenom")
+        if not Last_name:
+            raise forms.ValidationError("Entrez votre nom de famille")
+
+        return first_name, Last_name

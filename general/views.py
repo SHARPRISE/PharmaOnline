@@ -4,5 +4,8 @@ from django.shortcuts import render
 def landing(request):
     return render(request, "general/cover.html")
 
-def thanks(request):
-    return render("thanks_to.html")
+def about(request):
+    return render(request, "general/about.html")
+
+def dashboard(request):
+    return render(request, "general/dashboard.html")

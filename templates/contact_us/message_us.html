@@ -1,4 +1,19 @@
 {% extends 'medicaments/med_base.html' %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block title %} {{ title }} {% endblock %}
 
 {% block content %}
+<section id="contact">
+  <div class='row'>
+  <div class='col-sm-6 col-sm-offset-3'>
+    <form method='POST' action=''>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class='btn btn-block btn-primary' type='submit' value='Submit' value="{% trans 'Submit' %}" />
+    </form>
+  </div>
+  </div>
+</section>
 {% endblock %}
