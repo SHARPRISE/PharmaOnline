@@ -85,19 +85,19 @@ WSGI_APPLICATION = 'pharmaonline_beta.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pharma-beta',
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#        'NAME': 'pharma-beta',
+#    }
+#}
 
 AUTH_USER_MODEL = 'accounts.PharmacyUser'
 
 
 import dj_database_url
 #heroku databse config
-#DATABASES = {'default':dj_database_url.config(default='postgres://aqkqttoypgknct:Mbwjj2gxtRb0brY_Sgy45Wm3k3@ec2-54-83-199-54.compute-1.amazonaws.com:5432/d5mede92uhskss')}
+DATABASES = {'default':dj_database_url.config(default='postgres://aqkqttoypgknct:Mbwjj2gxtRb0brY_Sgy45Wm3k3@ec2-54-83-199-54.compute-1.amazonaws.com:5432/d5mede92uhskss')}
 
 
 
