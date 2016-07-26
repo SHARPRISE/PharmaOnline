@@ -1,19 +1,25 @@
+#django
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
+#other apps
 from accounts.models import PharmacyUser
 
+#third-party apps
 from haystack.forms import SearchForm
 from haystack.generic_views import SearchView
 
+#medicaments
 from .models import Medicament, Famille, Compagnie
 from .forms import MedicamentForm
 
-# Create your views here.
 
 def home(request):
     form = SearchForm
@@ -61,32 +67,23 @@ def update_medicament(request, pk=None):
     }
     return render(request, template, context)
 
-
-#vues de liste
-class MedicamentList(ListView):
-    model = Medicament
-    template_name = "medicaments/private_list.html"
-
-    #def get_context_data(self, **kwargs):
-    #    context = super(MedicamentList, self).get_context_data(**kwargs)
-    #    context['']
-
 def public_med_list(request):
     queryset = Medicament.objects.all()
+    paginator = Paginator(queryset, 10)
     template = "medicaments/public_list.html"
+
+    page = request.GET.get('page')
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
+
     context = {
         "queryset": queryset,
     }
     return render(request, template, context)
-
-
-class PrivateMedList(ListView):
-    template_name = "medicaments/private_list.html"
-
-    def get_queryset(self):
-        user = self.request.user
-        return Medicament.objects.filter(user = user)
-
 
 
 @login_required
@@ -106,5 +103,6 @@ class MedicamentDetail(DetailView):
 
 
 #vues de suppression
-#def delete_med(request, id=None):
-#    if not request.user.is_staff or request.user.is_superuser:
+class MedicamentDelete(DeleteView):
+    model = Medicament
+    success_url = reverse_lazy('inventaire')

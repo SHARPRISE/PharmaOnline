@@ -1,13 +1,37 @@
 {% extends 'medicaments/med_base.html' %}
+{% load staticfiles %}
 
 {% block content %}
-<div class='col-primary pull-left'>
-	<h1>Medicament: {{ medicament.commercial }} <small>by: {{ medicament.user }} </h1>
-	<p>{{ medicament.generique }}</p>
-  <p>Famille : {{ medicament.famille }}</p>
-	<p>{{ medicament.statut }}</p>
-
+<div class='page-header'>
+	<h1>{{ medicament.commercial }} <small>pharmacie: {{ medicament.user }} </small> </h1>
 </div>
+	<div class="=panel panel-primary">
+		<div class="media">
+			<div class="media-left media-middle">
+				<a href="#">
+					{% if medicament.image %}
+						<img class="media-object" src="{{ medicament.image }}" alt="">
+						{% else %}
+						<img class="media-object" src="{% static 'img/quick-pharma64.png' %}" alt="">
+						{% endif %}
+					</a>
+			</div>
+
+			<div class="media-body">
+				<h4 class="media-header"> Nom commercial: {{ mediament.commercial }} </h4>
+				<p>Nom generique: {{ medicament.generique }}</p>
+				<p>Pharmacie: {{ medicament.user }} </p>
+					{% if not medicament.famille %}
+		  			<p>Famille : Aucune declaree</p>
+					{% else %}
+						<p>Famille : {{ medicament.famille }} </p>
+					{% endif %}
+						<p>Verifie: {{ medicament.last_seen|date:"DATETIME_FORMAT" }} {{ medicament.last_seen|time:"H:i" }}</p>
+			</div>
+		</div>
+	</div>
+
+
 
 
 {% endblock %}

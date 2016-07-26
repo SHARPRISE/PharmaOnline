@@ -33,7 +33,7 @@ class Medicament(models.Model):
     compagnie   = models.ForeignKey('Compagnie', blank=True, null=True)
     statut      = models.CharField(max_length= 255)
     verified    = models.DateTimeField(auto_now=True, auto_now_add=False)
-    image       = models.ImageField(blank=True, upload_to="drug_labels")
+    image       = models.ImageField(blank=True, null=True, upload_to="drug_labels")
 
     def __str__(self):
         return self.commercial
@@ -44,8 +44,11 @@ class Medicament(models.Model):
     def get_modification_url(self):
         return reverse('medicaments:modifier', kwargs={'pk': self.pk})
 
+    def get_deletion_url(self):
+        return reverse('medicaments:delete', kwargs={'pk': self.pk})
+
     def last_seen(self):
-        return ("Disponible pour la derniere fois le: %s" %(self.verified))
+        return ("Modifie pour la derniere fois le: %s" %(self.verified))
 
 def create_slug(instance, new_slug=None):
     slug = slugify(instance.commercial + '-' + instance.generique)

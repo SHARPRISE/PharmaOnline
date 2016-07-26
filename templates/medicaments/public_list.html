@@ -28,5 +28,17 @@
 				{% endfor %}
 			</table>
 		</div>
+		<div class="pagination">
+			<span class="step-links">
+				{% if queryset.has_previous %}
+					<a href="?page={{ queryset.previous_page_number}}">previous</a>
+				{% endif %}
+				<span class="current">
+            Page {{ queryset.number }} of {{ queryset.paginator.num_pages }}.
+        </span>
+
+        {% if queryset.has_next %}
+            <a href="?page={{ queryset.next_page_number }}">next</a>
+        {% endif %}
 
 {% endblock %}

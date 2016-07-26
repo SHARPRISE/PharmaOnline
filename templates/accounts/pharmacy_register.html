@@ -1,4 +1,4 @@
-{% extends 'medicaments/med_base.html' %}
+  {% extends 'medicaments/med_base.html' %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -8,7 +8,7 @@
      <form class="form-horizontal form-control-static" method='POST' action="{{ action_url }}">
        {% csrf_token %}{{ register_form | crispy }}
        {{ pharmacy_form | crispy }}
-       <button class="btn btn-primary" type="{{ submit_button }}">Creer un compte</button>
+       <input class="btn btn-block btn-primary" type="{{ submit_button }}">Creer un compte</input>
      </form>
 
    </div>

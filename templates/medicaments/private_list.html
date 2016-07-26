@@ -11,17 +11,18 @@
 
 			<table class="table">
 				<tr>
-					<th> Nom Generique </th>
+					<th> Nom commercial </th>
 					<th> Derniere m.a.j </th>
 					<th> pharmacie </th>
 				<tr>
 				  <td>
-						<a href="{{ medicament.get_absolute_url }}">{{medicament.generique}}</a>
+						<a href="{{ medicament.get_absolute_url }}">{{medicament.commercial}}</a>
 					</td>
 				  <td>{{medicament.verified|timesince}}</td>
 					<td>{{medicament.user}}</td>
 					<td>
 						<a class="btn btn-primary" href="{{ medicament.get_modification_url }}"> Modifier </a>
+						<a class="btn btn-danger" href="{{ medicament.get_deletion_url }}"> Supprimer </a>
 					</td>
 			  </tr>
 			</table>
