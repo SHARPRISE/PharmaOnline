@@ -1,8 +1,11 @@
 from django.db import models
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
+from django.dispatch import receiver
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from rest_framework.authtoken.models import Token
 
+from accounts.models import Pharmacy
 
 from django.utils.text import slugify
 # Create your models here.
@@ -62,7 +65,7 @@ def create_slug(instance, new_slug=None):
     return slug
 
 
-def medicament_pre_save_reciever(sender, instance, *args, **kwargs):
+def medicament_pre_save_receiver(sender, instance, *args, **kwargs):
     if not instance.slug:
         instance.slug = create_slug(instance)
 
@@ -74,4 +77,9 @@ def medicament_pre_save_reciever(sender, instance, *args, **kwargs):
         instance.statut = "Medicament en Stock"
 
 
-pre_save.connect(medicament_pre_save_reciever, sender=Medicament)
+pre_save.connect(medicament_pre_save_receiver, sender=Medicament)
+
+@receiver(post_save, sender=Pharmacy)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)

@@ -20,6 +20,7 @@ from django.contrib import admin
 
 
 urlpatterns = [
+    url(r'^api/api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^$', 'general.views.landing', name='accueil'),
     url(r'^dashboard', 'general.views.dashboard', name='dashboard'),
     url(r'^about-us', 'general.views.about', name='about'),
@@ -27,5 +28,6 @@ urlpatterns = [
     url(r'^search/', include('haystack.urls')),
     url(r'^comptes/', include("accounts.urls", namespace="accounts")),
     url(r'^medicaments/', include("medicaments.urls", namespace="medicaments")),
-    url(r'^contact/', include("contact_us.urls", namespace="contact_us"))
+    url(r'^contact/', include("contact_us.urls", namespace="contact_us")),
+    url(r'^api/', include('medicaments.rest_urls', namespace="rest_urls"))
 ]

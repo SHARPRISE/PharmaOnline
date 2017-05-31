@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'crispy_forms',
     'haystack',
     'rest_framework',
+    'rest_framework.authtoken',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -146,6 +147,17 @@ HAYSTACK_CONNECTIONS = {
         'URL': 'http://127.0.0.1:9200/',
         'INDEX_NAME': 'haystack',
     },
+}
+
+#Django Rest Framework settings 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
 }
 
 

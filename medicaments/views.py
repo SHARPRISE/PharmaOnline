@@ -3,8 +3,16 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponseRedirect
+
+
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_exempt
+
+from rest_framework.renderers import JSONRenderer
+from rest_framework.parsers import JSONParser
+from rest_framework import generics, permissions
+
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
@@ -19,7 +27,8 @@ from haystack.generic_views import SearchView
 #medicaments
 from .models import Medicament, Famille, Compagnie
 from .forms import MedicamentForm
-
+from .serializers import MedicamentSerializer
+from .permissions import IsOwner
 
 def home(request):
     form = SearchForm
@@ -36,20 +45,20 @@ def home(request):
 #MEDICAMENTS
 #Vues de Creation et de modification
 
-@login_required
-def create_medicament(request):
-    form = MedicamentForm(request.POST or None)
-    if form.is_valid():
-        medicament = form.save(commit=False)
-        medicament.user = request.user
-        medicament.save()
-
-        messages.success(request, "Medicament ajoute.")
-    template = "medicaments/med_create.html"
-    context = {
-        "form": form,
-    }
-    return render(request, template, context)
+# @login_required
+# def create_medicament(request):
+#     form = MedicamentForm(request.POST or None)
+#     if form.is_valid():
+#         medicament = form.save(commit=False)
+#         medicament.user = request.user
+#         medicament.save()
+#
+#         messages.success(request, "Medicament ajoute.")
+#     template = "medicaments/med_create.html"
+#     context = {
+#         "form": form,
+#     }
+#     return render(request, template, context)
 
 @login_required
 def update_medicament(request, pk=None):
@@ -106,3 +115,27 @@ class MedicamentDetail(DetailView):
 class MedicamentDelete(DeleteView):
     model = Medicament
     success_url = reverse_lazy('inventaire')
+
+class MedicamentCreate(CreateView):
+    model = Medicament
+    # fields = ('commercial', 'generique', 'quantite', 'description', 'famille', 'stock', 'image')
+    success_url = reverse_lazy('ajouter')
+    form_class = MedicamentForm
+    template_name = 'medicaments/med_create.html'
+
+class CreateView(generics.ListCreateAPIView):
+    queryset = Medicament.objects.all()
+    serializer_class = MedicamentSerializer
+    permission_class = (permissions.IsAuthenticated, IsOwner)
+
+    def perform_create(self, serializer):
+        """Save the post data when creating a new bucketlist."""
+        serializer.save(user=self.request.user)
+
+
+class DetailsView(generics.RetrieveUpdateDestroyAPIView):
+    """This class handles the http GET, PUT and DELETE requests."""
+
+    queryset = Medicament.objects.all()
+    serializer_class = MedicamentSerializer
+    permission_class = (permissions.IsAuthenticated, IsOwner)
