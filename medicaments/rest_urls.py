@@ -11,6 +11,7 @@ from .views import (
 urlpatterns = [
     url(r'^create/', CreateView.as_view(), name="create"),
     url(r'^item/(?P<pk>[0-9]+)/$', DetailsView.as_view(), name="details"),
+    url(r'get-token/', obtain_auth_token)
 ]
 
 

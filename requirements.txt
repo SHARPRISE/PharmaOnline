@@ -16,3 +16,4 @@ static3==0.6.1
 urllib3==1.14
 whitenoise==2.0.6
 Whoosh==2.7.0
+raven==6.1.0

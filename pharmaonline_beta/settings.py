@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     'haystack',
     'rest_framework',
     'rest_framework.authtoken',
+    'raven.contrib.django.raven_compat',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -149,7 +150,7 @@ HAYSTACK_CONNECTIONS = {
     },
 }
 
-#Django Rest Framework settings 
+#Django Rest Framework settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
@@ -160,6 +161,14 @@ REST_FRAMEWORK = {
     )
 }
 
+import raven
+
+RAVEN_CONFIG = {
+    'dsn': 'https://160d8f5377334b3baef26488f782b2fb:09b6e99184c3468daa1bb73e1162c8f2@sentry.io/178409',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    'release': raven.fetch_git_sha(os.path.dirname(os.pardir)),
+}
 
 if DEBUG:
     #email settings
